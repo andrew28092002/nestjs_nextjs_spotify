@@ -12,15 +12,15 @@ export enum FileType {
 export class FileService {
   createFile(type: FileType, file): string {
     try {
-      const fileExtension = file.originalname.split('.').pop();
-      const fileName = uuid.v4() + fileExtension;
-      const filePath = path.resolve(__dirname, '..', 'static');
+      const fileExtension = file[0].originalname.split('.').pop();
+      const fileName = uuid.v4() + '.' + fileExtension;
+      const filePath = path.resolve(__dirname, '..', 'static', type);
 
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
 
-      fs.writeFileSync(path.resolve(filePath, fileName), file.buffer);
+      fs.writeFileSync(path.resolve(filePath, fileName), file[0].buffer);
 
       return String(type + '/' + fileName);
     } catch (e) {

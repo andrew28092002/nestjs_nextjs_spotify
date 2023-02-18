@@ -25,9 +25,13 @@ export class TrackController {
       { name: 'audio', maxCount: 1 },
     ]),
   )
-  create(@Body() dto: CreateTrackDto, @UploadedFiles() files) {
+  create(
+    @Body() dto: CreateTrackDto,
+    @UploadedFiles()
+    files: { picture?: Express.Multer.File[]; audio?: Express.Multer.File[] },
+  ) {
     const { picture, audio } = files;
-    return this.TrackService.create(dto, '', '');
+    return this.TrackService.create(dto, picture, audio);
   }
 
   @Get()
