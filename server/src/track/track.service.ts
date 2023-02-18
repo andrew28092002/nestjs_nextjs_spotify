@@ -14,7 +14,7 @@ export class TrackService {
     private readonly CommentModel: Model<CommentDocument>,
   ) {}
 
-  async create(dto: CreateTrackDto): Promise<Track> {
+  async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
     const track = await this.TrackModel.create(dto);
 
     return track;
@@ -27,7 +27,7 @@ export class TrackService {
   }
 
   async getOne(id: ObjectId): Promise<Track> {
-    const track = await this.TrackModel.findById(id);
+    const track = await this.TrackModel.findById(id).populate('comments');
 
     return track;
   }
@@ -41,7 +41,7 @@ export class TrackService {
   async addComment(dto: AddCommentDto): Promise<Comment> {
     const track = await this.TrackModel.findById(dto.trackId);
     const comment = await this.CommentModel.create(dto);
-    
+
     track.comments.push(comment.id);
     await track.save();
 
