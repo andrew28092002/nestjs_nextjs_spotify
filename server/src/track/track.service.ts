@@ -10,4 +10,8 @@ export class TrackService {
     @InjectModel(Track.name) private readonly TrackModel: Model<TrackDocument>,
     @InjectModel(Comment.name) private readonly CommentModel: Model<CommentDocument>
   ) {}
+
+  async create(){
+    const track = await this.TrackModel.create()
+  }
 }
