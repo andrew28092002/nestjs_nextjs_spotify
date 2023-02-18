@@ -11,11 +11,7 @@ import { AlbumModule } from './album/album.module';
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
-    MongooseModule.forRoot(process.env.MONGO_URL, {
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    }),
+    MongooseModule.forRoot(process.env.MONGO_URL),
     TrackModule,
     AlbumModule,
   ],
