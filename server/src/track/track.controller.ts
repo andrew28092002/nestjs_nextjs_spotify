@@ -18,7 +18,7 @@ export class TrackController {
   }
 
   @Get(':id')
-  getOne(@Param() id: ObjectId){
+  getOne(@Param('id') id: ObjectId){
     return this.TrackService.getOne(id)
   }
 }
