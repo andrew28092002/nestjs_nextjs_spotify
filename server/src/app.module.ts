@@ -4,7 +4,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TrackModule } from './track/track.module';
-import { AlbumModule } from './album/album.module';
 
 @Module({
   imports: [
@@ -13,7 +12,6 @@ import { AlbumModule } from './album/album.module';
     }),
     MongooseModule.forRoot(process.env.MONGO_URL),
     TrackModule,
-    AlbumModule,
   ],
   controllers: [AppController],
   providers: [AppService],

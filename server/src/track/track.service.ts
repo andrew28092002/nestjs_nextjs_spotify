@@ -17,4 +17,10 @@ export class TrackService {
 
     return track
   }
+
+  async getAll(): Promise<Track[]>{
+    return await this.TrackModel.find()
+  }
+
+  
 }
