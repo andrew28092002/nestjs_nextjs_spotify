@@ -5,16 +5,16 @@ export type TrackDocument = HydratedDocument<Track>;
 
 @Schema()
 export class Track {
-  @Prop()
+  @Prop({required: true})
   name: string;
 
-  @Prop()
+  @Prop({required: true})
   artist: string;
 
-  @Prop()
+  @Prop({required: true})
   track: string;
 
-  @Prop()
+  @Prop({default: 0})
   listens: number;
 
   @Prop()
