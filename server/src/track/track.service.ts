@@ -29,4 +29,10 @@ export class TrackService {
 
     return track
   }
+
+  async delete(id: ObjectId): Promise<ObjectId>{
+    await this.TrackModel.findByIdAndDelete(id)
+
+    return id
+  }
 }
