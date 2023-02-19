@@ -16,7 +16,7 @@ export class TrackService {
     private readonly FileService: FileService,
   ) {}
 
-  async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
+  async create(dto: CreateTrackDto, picture: Express.Multer.File[], audio: Express.Multer.File[]): Promise<Track> {
     const audioPath = this.FileService.createFile(FileType.AUDIO, audio);
     const picturePath = this.FileService.createFile(FileType.IMAGE, picture);
     const track = await this.TrackModel.create({

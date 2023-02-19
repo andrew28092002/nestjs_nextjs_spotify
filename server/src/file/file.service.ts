@@ -10,7 +10,7 @@ export enum FileType {
 
 @Injectable()
 export class FileService {
-  createFile(type: FileType, file): string {
+  createFile(type: FileType, file: Express.Multer.File[]): string {
     try {
       const fileExtension = file[0].originalname.split('.').pop();
       const fileName = uuid.v4() + '.' + fileExtension;
