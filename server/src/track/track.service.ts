@@ -16,7 +16,11 @@ export class TrackService {
     private readonly FileService: FileService,
   ) {}
 
-  async create(dto: CreateTrackDto, picture: Express.Multer.File[], audio: Express.Multer.File[]): Promise<Track> {
+  async create(
+    dto: CreateTrackDto,
+    picture: Express.Multer.File[],
+    audio: Express.Multer.File[],
+  ): Promise<Track> {
     const audioPath = this.FileService.createFile(FileType.AUDIO, audio);
     const picturePath = this.FileService.createFile(FileType.IMAGE, picture);
     const track = await this.TrackModel.create({
@@ -28,8 +32,8 @@ export class TrackService {
     return track;
   }
 
-  async getAll(): Promise<Track[]> {
-    const tracks = await this.TrackModel.find();
+  async getAll(count = 10, offset = 0): Promise<Track[]> {
+    const tracks = await this.TrackModel.find().skip(offset).limit(count);
 
     return tracks;
   }
@@ -56,12 +60,12 @@ export class TrackService {
     return comment;
   }
 
-  async listen(id: ObjectId): Promise<Track>{
-    const track = await this.TrackModel.findById(id)
-    track.listens += 1
+  async listen(id: ObjectId): Promise<Track> {
+    const track = await this.TrackModel.findById(id);
+    track.listens += 1;
 
-    await track.save()
+    await track.save();
 
-    return track
+    return track;
   }
 }

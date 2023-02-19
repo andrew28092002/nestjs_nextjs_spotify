@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -35,8 +36,8 @@ export class TrackController {
   }
 
   @Get()
-  getAll() {
-    return this.TrackService.getAll();
+  getAll(@Query('count') count: number, @Query('offset') offset: number) {
+    return this.TrackService.getAll(count, offset);
   }
 
   @Get(':id')
@@ -55,7 +56,7 @@ export class TrackController {
   }
 
   @Get('listen/:id')
-  listen(@Param('id') id: ObjectId){
-    return this.TrackService.listen(id)
+  listen(@Param('id') id: ObjectId) {
+    return this.TrackService.listen(id);
   }
 }
