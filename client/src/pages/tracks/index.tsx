@@ -1,9 +1,12 @@
-import React from 'react'
+import { MainLayout } from "@/layout/MainLayout";
+import React from "react";
 
 const index = () => {
   return (
-    <div>all tracks</div>
-  )
-}
+    <MainLayout>
+      <h1>Список Треков</h1>
+    </MainLayout>
+  );
+};
 
-export default index
+export default index;
