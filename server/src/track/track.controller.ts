@@ -53,4 +53,9 @@ export class TrackController {
   addComment(@Body() dto: AddCommentDto) {
     return this.TrackService.addComment(dto);
   }
+
+  @Get('listen/:id')
+  listen(@Param('id') id: ObjectId){
+    return this.TrackService.listen(id)
+  }
 }

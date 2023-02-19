@@ -55,4 +55,13 @@ export class TrackService {
 
     return comment;
   }
+
+  async listen(id: ObjectId): Promise<Track>{
+    const track = await this.TrackModel.findById(id)
+    track.listens += 1
+
+    await track.save()
+
+    return track
+  }
 }
