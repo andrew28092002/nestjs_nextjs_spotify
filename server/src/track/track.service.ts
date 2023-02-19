@@ -38,6 +38,16 @@ export class TrackService {
     return tracks;
   }
 
+  async search(query: string): Promise<Track[]> {
+    const tracks = await this.TrackModel.find({
+      name: {
+        $regex: new RegExp(query, 'i'),
+      },
+    });
+
+    return tracks
+  }
+
   async getOne(id: ObjectId): Promise<Track> {
     const track = await this.TrackModel.findById(id).populate('comments');
 

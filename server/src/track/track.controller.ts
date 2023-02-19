@@ -40,6 +40,11 @@ export class TrackController {
     return this.TrackService.getAll(count, offset);
   }
 
+  @Get('search')
+  search(@Query('query') query: string) {
+    return this.TrackService.search(query);
+  }
+
   @Get(':id')
   getOne(@Param('id') id: ObjectId) {
     return this.TrackService.getOne(id);
