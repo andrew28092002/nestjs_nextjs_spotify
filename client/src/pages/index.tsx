@@ -12,20 +12,6 @@ const index = () => {
 
       <style>
         {`
-          html{
-            height: 100%;
-          }
-          body{
-            height: 100%
-          }
-          *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-          }
-          #__next{
-            height: 100%;
-          }
           .center{
             display: flex;
             justify-content: center;

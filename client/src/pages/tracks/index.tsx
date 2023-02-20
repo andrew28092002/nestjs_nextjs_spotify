@@ -1,20 +1,24 @@
 import TrackList from "@/components/TrackList";
 import { MainLayout } from "@/layout/MainLayout";
 import { Box, Button, Card, Grid } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
 
 const index = () => {
+  const router = useRouter();
   return (
-    <MainLayout>
+    <MainLayout title={"Список треков - музыкальная площадка"}>
       <Grid container justifyContent="center">
-        <Card style={{ width: "1200px", margin: "0 30px" }}>
+        <Card style={{ width: 900 }}>
           <Box p={3}>
             <Grid container justifyContent="space-between">
               <h1>Список треков</h1>
-              <Button>Загрузить</Button>
+              <Button onClick={() => router.push("/tracks/create")}>
+                Загрузить
+              </Button>
             </Grid>
           </Box>
-          {/* <TrackList tracks={}/> */}
+          {/* <TrackList tracks={tracks} /> */}
         </Card>
       </Grid>
     </MainLayout>
