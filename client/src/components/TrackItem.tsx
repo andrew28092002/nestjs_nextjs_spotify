@@ -1,4 +1,5 @@
 import { ITrack } from "@/types/track";
+import { Card } from "@mui/material";
 import React, { FC } from "react";
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
 };
 
 const TrackItem: FC<Props> = ({ track, active = false }) => {
-  return <div>{track.name}</div>;
+  return <Card>{track.name}</Card>;
 };
 
 export default TrackItem;
