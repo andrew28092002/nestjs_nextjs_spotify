@@ -10,7 +10,9 @@ export const MainLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Navbar />
-      <Container style={{ margin: "90px 0" }}>{children}</Container>
+      <Container style={{margin: '90px auto'}}>
+        {children}
+      </Container>
     </>
   );
 };
