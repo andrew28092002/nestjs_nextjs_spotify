@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 
 type Props = {
     activeStep: number,
-    children: string | JSX.Element
+    children: string | JSX.Element | JSX.Element[] | boolean
 }
 
 const steps = ['Информация о треке', 'Загрузите обложку', 'Загрузите сам трек']

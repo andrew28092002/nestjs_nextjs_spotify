@@ -7,7 +7,7 @@ type Props = {
   title?: string;
   description?: string;
   keywords?: string;
-  children: string | JSX.Element;
+  children: string | JSX.Element | JSX.Element[];
 };
 
 export const MainLayout: FC<Props> = ({
