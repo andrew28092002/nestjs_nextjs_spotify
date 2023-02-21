@@ -1,11 +1,13 @@
 import StepWrapper from "@/components/StepWrapper";
 import { MainLayout } from "@/layout/MainLayout";
-import { FileUpload } from "@mui/icons-material";
 import { Grid, Button, TextField } from "@mui/material";
 import { FC, useState } from "react";
+import FileUpload from "@/components/FileUpload";
 
 const Create: FC = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [picture, setPicture] = useState()
+  const [audio, setAudio] = useState()
 
   const next = () => {
     setActiveStep((prev) => prev + 1);
@@ -38,17 +40,15 @@ const Create: FC = () => {
   );
 
   const step2 = activeStep === 1 && (
-    // <FileUpload setFile={setPicture} accept="image/*">
-    //   <Button>Загрузить изображение</Button>
-    // </FileUpload>
-    <div></div>
+    <FileUpload setFile={setPicture} accept="image/*">
+      <Button>Загрузить изображение</Button>
+    </FileUpload>
   );
 
   const step3 = activeStep === 2 && (
-    // <FileUpload setFile={setAudio} accept="audio/*">
-    //   <Button>Загрузить аудио</Button>
-    // </FileUpload>
-    <div></div>
+    <FileUpload setFile={setAudio} accept="audio/*">
+      <Button>Загрузить аудио</Button>
+    </FileUpload>
   );
 
   return (
