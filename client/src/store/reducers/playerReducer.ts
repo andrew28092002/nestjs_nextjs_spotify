@@ -1,4 +1,8 @@
-import { IPlayer, PlayerActionTypes, TPlayerAction } from "@/types/player";
+import {
+  IPlayer,
+} from "@/types/player";
+import { ITrack } from "@/types/track";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IPlayer = {
   active: null,
@@ -8,19 +12,30 @@ const initialState: IPlayer = {
   pause: false,
 };
 
-export const playerReducer = (state = initialState, action: TPlayerAction) => {
-  switch (action.type) {
-    case PlayerActionTypes.PLAY:
-      return { ...state, pause: true };
-    case PlayerActionTypes.PAUSE:
-      return { ...state, pause: false };
-    case PlayerActionTypes.SET_ACTIVE:
-      return { ...state, active: action.payload };
-    case PlayerActionTypes.SET_CURRENT_TIME:
-      return { ...state, currentTime: action.payload };
-    case PlayerActionTypes.SET_DURATION:
-      return { ...state, duration: action.payload };
-    case PlayerActionTypes.SET_VOLUME:
-      return { ...state, volume: action.payload };
-  }
-};
+const playerSlice = createSlice({
+  name: "player",
+  initialState,
+  reducers: {
+    play: (state) => {
+      state.pause = true;
+    },
+    pause: (state) => {
+      state.pause = false;
+    },
+    setActive: (state, action: PayloadAction<ITrack>) => {
+      state.active = action.payload;
+    },
+    setDuration: (state, action: PayloadAction<number>) => {
+      state.duration = action.payload;
+    },
+    setCurrentTime: (state, action: PayloadAction<number>) => {
+      state.currentTime = action.payload;
+    },
+    setVolume: (state, action: PayloadAction<number>) => {
+      state.volume = action.payload;
+    },
+  },
+});
+
+export const {play, pause, setActive, setDuration, setCurrentTime, setVolume} = playerSlice.actions
+export const playerReducer = playerSlice.reducer
