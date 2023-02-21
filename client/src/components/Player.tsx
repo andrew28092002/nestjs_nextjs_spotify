@@ -3,6 +3,7 @@ import { Pause, PlayArrow } from "@mui/icons-material";
 import { Grid, IconButton } from "@mui/material";
 import React, { FC } from "react";
 import styles from "./../styles/Player.module.scss";
+import TrackProgress from "./TrackProgress";
 
 type Props = {
     track: ITrack
@@ -23,6 +24,7 @@ const Player: FC<Props> = ({ track }) => {
         <div>{track.name}</div>
         <div style={{ fontSize: "12px", color: "gray" }}>{track.artist}</div>
       </Grid>
+      <TrackProgress left={0} right={0} onChange={() => {}}/>
     </div>
   );
 };
