@@ -9,8 +9,9 @@ type Props = {
   track: ITrack;
 };
 
-const Player: FC<Props> = ({ track }) => {
+const Player: FC<Props> = () => {
   const active = false;
+  const track = {name: 'adfa', artist: 'asdfsdaf'}
   return (
     <div className={styles.player}>
       <IconButton onClick={(e) => e.stopPropagation()}>
@@ -26,7 +27,8 @@ const Player: FC<Props> = ({ track }) => {
       </Grid>
       <TrackProgress left={0} right={100} onChange={() => {}} />
       <VolumeUp style={{ marginLeft: "auto" }} />
-      <TrackProgress left={0} right={100} onChange={() => {}} />
+      <TrackProgress left={0} right={100} onChange={() => {
+      }} />
     </div>
   );
 };
