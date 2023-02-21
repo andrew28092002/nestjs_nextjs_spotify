@@ -1,15 +1,28 @@
+import { ITrack } from "@/types/track";
 import { Pause, PlayArrow } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
-import React from "react";
+import { Grid, IconButton } from "@mui/material";
+import React, { FC } from "react";
 import styles from "./../styles/Player.module.scss";
 
-const Player = () => {
+type Props = {
+    track: ITrack
+}
+
+const Player: FC<Props> = ({ track }) => {
   const active = false;
   return (
-    <div className="styles">
+    <div className={styles.player}>
       <IconButton onClick={(e) => e.stopPropagation()}>
         {active ? <Pause /> : <PlayArrow />}
       </IconButton>
+      <Grid
+        container
+        direction="column"
+        style={{ width: "200px", margin: "0 20px" }}
+      >
+        <div>{track.name}</div>
+        <div style={{ fontSize: "12px", color: "gray" }}>{track.artist}</div>
+      </Grid>
     </div>
   );
 };
