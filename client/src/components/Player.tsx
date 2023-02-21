@@ -1,13 +1,13 @@
 import { ITrack } from "@/types/track";
-import { Pause, PlayArrow } from "@mui/icons-material";
+import { Pause, PlayArrow, VolumeUp } from "@mui/icons-material";
 import { Grid, IconButton } from "@mui/material";
 import React, { FC } from "react";
 import styles from "./../styles/Player.module.scss";
 import TrackProgress from "./TrackProgress";
 
 type Props = {
-    track: ITrack
-}
+  track: ITrack;
+};
 
 const Player: FC<Props> = ({ track }) => {
   const active = false;
@@ -24,7 +24,9 @@ const Player: FC<Props> = ({ track }) => {
         <div>{track.name}</div>
         <div style={{ fontSize: "12px", color: "gray" }}>{track.artist}</div>
       </Grid>
-      <TrackProgress left={0} right={0} onChange={() => {}}/>
+      <TrackProgress left={0} right={100} onChange={() => {}} />
+      <VolumeUp style={{ marginLeft: "auto" }} />
+      <TrackProgress left={0} right={100} onChange={() => {}} />
     </div>
   );
 };
