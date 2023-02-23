@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, ThunkDispatch } from "@reduxjs/toolkit";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import { AnyAction, combineReducers } from "redux";
 import { playerReducer } from "./reducers/playerReducer";
@@ -30,5 +30,6 @@ export const store = makeStore();
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type NextThunkDispatch = ThunkDispatch<RootState, void, AnyAction>
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(makeStore, {debug: true});

@@ -1,11 +1,20 @@
 import TrackList from "@/components/TrackList";
 import { MainLayout } from "@/layout/MainLayout";
+import { getAll } from "@/store/actions/trackAsyncActions";
+import { NextThunkDispatch, wrapper } from "@/store/store";
+import { ITrack } from "@/types/track";
 import { Box, Button, Card, Grid } from "@mui/material";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { FC } from "react";
 
-const index = () => {
+type Props = {
+  tracks: ITrack[];
+};
+
+const index: FC<Props> = ({ tracks }) => {
   const router = useRouter();
+
   return (
     <MainLayout title={"Список треков - музыкальная площадка"}>
       <Grid container justifyContent="center">
@@ -18,7 +27,7 @@ const index = () => {
               </Button>
             </Grid>
           </Box>
-          {/* <TrackList tracks={tracks} /> */}
+          <TrackList tracks={tracks} />
         </Card>
       </Grid>
     </MainLayout>
@@ -26,3 +35,16 @@ const index = () => {
 };
 
 export default index;
+
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async () => {
+    const dispatch = store.dispatch as NextThunkDispatch;
+
+    const { payload: tracks } = await dispatch(getAll());
+
+    return {
+      props: {
+        tracks,
+      },
+    };
+  });

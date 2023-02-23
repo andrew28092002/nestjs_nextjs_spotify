@@ -1,14 +1,19 @@
-import { getAll } from "@/store/actions/trackAsyncActions";
-import { wrapper } from "@/store/store";
-import { ITrack } from "@/types/track";
+
+import { RootState } from "@/store/store";
+import { ITrack, TTrackState } from "@/types/track";
 import { useTypedSelector } from "@/types/typedHooks/useTypedSelector";
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { FC } from "react";
+import { connect } from "react-redux";
 import TrackItem from "./TrackItem";
 
-interface Props {
-  tracks: ITrack[]
+// interface Props {
+//   track: {tracks: ITrack[]}
+// }
+
+type Props = {
+    tracks: ITrack[]
 }
 
 const TrackList: React.FC<Props> = ({tracks}) => {
@@ -27,4 +32,4 @@ const TrackList: React.FC<Props> = ({tracks}) => {
   );
 };
 
-export default TrackList;
+export default TrackList

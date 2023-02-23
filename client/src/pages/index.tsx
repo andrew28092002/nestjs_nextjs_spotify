@@ -1,4 +1,5 @@
 import { MainLayout } from "@/layout/MainLayout";
+import { wrapper } from "@/store/store";
 
 const index = () => {
   return (

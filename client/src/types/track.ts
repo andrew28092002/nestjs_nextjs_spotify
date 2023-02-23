@@ -17,5 +17,4 @@ export interface ITrack {
 
 export type TTrackState = {
   tracks: ITrack[];
-  isLoading: boolean;
 };
