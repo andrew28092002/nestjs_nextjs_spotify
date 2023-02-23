@@ -26,18 +26,21 @@ const Player: FC<Props> = () => {
   );
   const dispatch = useTypedDispatch();
 
+  if (!active) return null;
+
   useEffect(() => {
     if (!audio) {
       audio = new Audio();
     } else {
-      setAudio()
+      setAudio();
+      play();
     }
-  }, []);
+  }, [active]);
 
   const setAudio = () => {
     if (active) {
-      audio.src = track.audio;
-      audio.volume = track.volume / 100;
+      audio.src = active.audio;
+      audio.volume = volume / 100;
       audio.onloadmetadata = () => {
         dispatch(setDuration(Math.ceil(audio.duration)));
       };
@@ -69,16 +72,16 @@ const Player: FC<Props> = () => {
 
   return (
     <div className={styles.player}>
-      <IconButton onClick={(e) => e.stopPropagation()}>
-        {active ? <Pause /> : <PlayArrow />}
+      <IconButton onClick={play}>
+        {pause ? <PlayArrow /> : <Pause />}
       </IconButton>
       <Grid
         container
         direction="column"
-        style={{ width: "200px", margin: "0 20px" }}
+        style={{ width: 200, margin: "0 20px" }}
       >
-        <div>{track.name}</div>
-        <div style={{ fontSize: "12px", color: "gray" }}>{track.artist}</div>
+        <div>{active?.name}</div>
+        <div style={{ fontSize: 12, color: "gray" }}>{active?.artist}</div>
       </Grid>
       <TrackProgress
         left={currentTime}
