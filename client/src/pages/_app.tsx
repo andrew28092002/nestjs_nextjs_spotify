@@ -1,8 +1,13 @@
-import { wrapper } from "@/store/store";
+import { store, wrapper } from "@/store/store";
 import { AppProps } from "next/app";
+import { Provider } from "react-redux";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  return <Component {...pageProps} />;
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 };
 
 export default wrapper.withRedux(MyApp);
