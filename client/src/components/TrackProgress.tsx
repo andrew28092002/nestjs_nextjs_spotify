@@ -9,7 +9,7 @@ type Props = {
 const TrackProgress: FC<Props> = ({ left, right, onChange }) => {
   return (
     <div style={{ display: "flex" }}>
-      <input type="range" min={left} value={left} max={right} onChange={onChange} />
+      <input type="range" min={0} value={left} max={right} onChange={onChange} />
       <div>
         {left} / {right}
       </div>
