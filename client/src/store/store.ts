@@ -1,14 +1,15 @@
-import { IPlayer } from "@/types/player";
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
-import { AnyAction, CombinedState, combineReducers } from "redux";
+import { AnyAction, combineReducers } from "redux";
 import { playerReducer } from "./reducers/playerReducer";
+import { trackReducer } from "./reducers/trackReducer";
 
-const combinedReducers = combineReducers({
+const combinedReducer = combineReducers({
   player: playerReducer,
+  track: trackReducer,
 });
 
-const rootReducer = (state: CombinedState<{ player: IPlayer; }> | undefined, action: AnyAction) => {
+const reducer: typeof combinedReducer = (state, action: AnyAction) => {
   if (action.type === HYDRATE) {
     const nextState = {
       ...state, // use previous state
@@ -16,11 +17,14 @@ const rootReducer = (state: CombinedState<{ player: IPlayer; }> | undefined, act
     };
     return nextState;
   } else {
-    return combinedReducers(state, action);
+    return combinedReducer(state, action);
   }
 };
 
-export const makeStore = () => configureStore({ reducer: rootReducer });
+export const makeStore = () =>
+  configureStore({
+    reducer,
+  });
 
 export const store = makeStore();
 
