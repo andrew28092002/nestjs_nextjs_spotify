@@ -1,6 +1,7 @@
-import { playTrack, setActive } from "@/store/reducers/playerReducer";
+import { pauseTrack, playTrack, setActive } from "@/store/reducers/playerReducer";
 import { ITrack } from "@/types/track";
 import { useTypedDispatch } from "@/types/typedHooks/useTypedDispatch";
+import { useTypedSelector } from "@/types/typedHooks/useTypedSelector";
 import { Delete, MoreHoriz, Pause, PlayArrow } from "@mui/icons-material";
 import { Card, Grid, IconButton } from "@mui/material";
 import { useRouter } from "next/router";
@@ -12,14 +13,20 @@ type Props = {
   active?: boolean;
 };
 
-const TrackItem: FC<Props> = ({ track, active = false }) => {
+const TrackItem: FC<Props> = ({ track }) => {
   const router = useRouter();
   const dispatch = useTypedDispatch();
+  const { active, pause } = useTypedSelector((state) => state.player);
+  const isCurrentTrackActive = track._id === active?._id && pause;
 
   const play = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    dispatch(setActive(track));
-    dispatch(playTrack);
+    if (pause) {
+      dispatch(setActive(track));
+      dispatch(playTrack);
+    } else {
+      dispatch(pauseTrack())
+    }
   };
   return (
     <Card
@@ -27,7 +34,7 @@ const TrackItem: FC<Props> = ({ track, active = false }) => {
       onClick={() => router.push("/tracks/" + track._id)}
     >
       <IconButton onClick={play}>
-        {!active ? <PlayArrow /> : <Pause />}
+        {!isCurrentTrackActive ? <PlayArrow /> : <Pause />}
       </IconButton>
       <img
         width={70}
