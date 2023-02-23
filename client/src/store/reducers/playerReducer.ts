@@ -24,6 +24,8 @@ const playerSlice = createSlice({
     },
     setActive: (state, action: PayloadAction<ITrack>) => {
       state.active = action.payload;
+      state.duration = 0
+      state.currentTime = 0
     },
     setDuration: (state, action: PayloadAction<number>) => {
       state.duration = action.payload;
