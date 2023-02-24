@@ -5,9 +5,10 @@ type Props = {
   left: number;
   right: number;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  type: "audio" | "volume";
 };
 
-const TrackProgress: FC<Props> = ({ left, right, onChange }) => {
+const TrackProgress: FC<Props> = ({ left, right, onChange, type }) => {
   return (
     <div style={{ display: "flex" }}>
       <input
@@ -18,7 +19,8 @@ const TrackProgress: FC<Props> = ({ left, right, onChange }) => {
         onChange={onChange}
       />
       <div>
-        {moment.unix(left).format('mm:ss')} / {moment.unix(right).format('mm:ss')}
+        {type !== "audio" ? left : moment.unix(left).format("mm:ss")} /{" "}
+        {type !== "audio" ? right : moment.unix(right).format("mm:ss")}
       </div>
     </div>
   );

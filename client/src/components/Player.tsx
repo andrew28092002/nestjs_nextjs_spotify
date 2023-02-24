@@ -84,9 +84,15 @@ const Player: FC = () => {
         left={currentTime}
         right={duration}
         onChange={changeCurrentTime}
+        type="audio"
       />
       <VolumeUp style={{ marginLeft: "auto" }} />
-      <TrackProgress left={volume} right={100} onChange={changeVolume} />
+      <TrackProgress
+        left={volume}
+        right={100}
+        onChange={changeVolume}
+        type="volume"
+      />
     </div>
   );
 };
