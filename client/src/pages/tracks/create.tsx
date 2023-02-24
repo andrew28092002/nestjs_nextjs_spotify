@@ -3,14 +3,34 @@ import { MainLayout } from "@/layout/MainLayout";
 import { Grid, Button, TextField } from "@mui/material";
 import { FC, useState } from "react";
 import FileUpload from "@/components/FileUpload";
+import { useInput } from "@/features/useInput";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const Create: FC = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [picture, setPicture] = useState()
-  const [audio, setAudio] = useState()
+  const [picture, setPicture] = useState('')
+  const [audio, setAudio] = useState('')
+  const name = useInput('')
+  const artist = useInput('')
+  const text = useInput('')
+  const router = useRouter()
 
   const next = () => {
-    setActiveStep((prev) => prev + 1);
+    if (activeStep !== 2){
+      setActiveStep((prev) => prev + 1);
+    } else {
+      const formData = new FormData()
+      formData.append('name', name.value)
+      formData.append('artist', artist.value)
+      formData.append('text', text.value)
+      formData.append('picture', picture)
+      formData.append('audio', audio)
+
+      axios.post('http://localhost:4000/track', formData)
+                .then(resp => router.push('/tracks'))
+                .catch(e => console.log(e))
+    }
   };
 
   const back = () => {
@@ -20,17 +40,17 @@ const Create: FC = () => {
   const step1: boolean | JSX.Element = activeStep === 0 && (
     <Grid container direction={"column"} style={{ padding: 20 }}>
       <TextField
-        // {...name}
+        {...name}
         style={{ marginTop: 10 }}
         label={"Название трека"}
       />
       <TextField
-        // {...artist}
+        {...artist}
         style={{ marginTop: 10 }}
         label={"Имя исполнителя"}
       />
       <TextField
-        // {...text}
+        {...text}
         style={{ marginTop: 10 }}
         label={"Слова к треку"}
         multiline
