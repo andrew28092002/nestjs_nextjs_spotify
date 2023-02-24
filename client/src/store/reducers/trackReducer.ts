@@ -1,7 +1,6 @@
 import { ITrack, TTrackState } from "@/types/track";
-import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
-import { getAll, getOne } from "../actions/trackAsyncActions";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getAll } from "../actions/trackAsyncActions";
 
 const initialState: TTrackState = {
   tracks: [],

@@ -16,15 +16,24 @@ export const getAll = createAsyncThunk("track/getAll", async function () {
   }
 });
 
-export const getOne = createAsyncThunk("track/getOne", async function (id) {
-  try {
-    const response = await axios.get<ITrack>(process.env.URL + "/track/" + id);
+export const commentTrack = createAsyncThunk(
+  "track/commentTrack",
+  async function (
+    comment: { username: string; text: string; trackId: string },
+    { dispatch }
+  ) {
+    try {
+      const response = await axios.post<string>(
+        "http://localhost:4000/track/comment",
+        comment
+      );
 
-    const track = response.data;
+      await dispatch(getAll())
 
-    return track;
-  } catch (error) {
-    console.log(error);
-    return null;
+      return response.data;
+    } catch (e) {
+      console.log(e);
+      return "";
+    }
   }
-});
+);
