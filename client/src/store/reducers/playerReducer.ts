@@ -6,7 +6,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IPlayer = {
   active: null,
-  volume: 0,
+  volume: 50,
   duration: 0,
   currentTime: 0,
   pause: false,

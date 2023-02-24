@@ -5,7 +5,6 @@ import {
   setDuration,
   setVolume,
 } from "@/store/reducers/playerReducer";
-import { ITrack } from "@/types/track";
 import { useTypedDispatch } from "@/types/typedHooks/useTypedDispatch";
 import { useTypedSelector } from "@/types/typedHooks/useTypedSelector";
 import { Pause, PlayArrow, VolumeUp } from "@mui/icons-material";
@@ -14,34 +13,29 @@ import React, { FC, useEffect } from "react";
 import styles from "./../styles/Player.module.scss";
 import TrackProgress from "./TrackProgress";
 
-type Props = {
-  track: ITrack;
-};
+let audio: HTMLAudioElement;
 
-let audio: any;
-
-const Player: FC<Props> = () => {
-  const { pause, duration, volume, active, currentTime } = useTypedSelector(
+const Player: FC = () => {
+  const { pause, volume, active, duration, currentTime } = useTypedSelector(
     (state) => state.player
   );
   const dispatch = useTypedDispatch();
-
-  if (!active) return null;
 
   useEffect(() => {
     if (!audio) {
       audio = new Audio();
     } else {
-      setAudio();
-      play();
+      if (pause) {
+        setAudio().then(() => play());
+      }
     }
   }, [active]);
 
-  const setAudio = () => {
+  const setAudio = async () => {
     if (active) {
-      audio.src = active.audio;
+      audio.src = "http://localhost:4000/" + active.audio;
       audio.volume = volume / 100;
-      audio.onloadmetadata = () => {
+      audio.onloadedmetadata = () => {
         dispatch(setDuration(Math.ceil(audio.duration)));
       };
       audio.ontimeupdate = () => {
@@ -51,7 +45,7 @@ const Player: FC<Props> = () => {
   };
 
   const play = () => {
-    if (pause) {
+    if (!pause) {
       dispatch(playTrack());
       audio.play();
     } else {
@@ -64,16 +58,19 @@ const Player: FC<Props> = () => {
     audio.volume = Number(e.target.value) / 100;
     dispatch(setVolume(Number(e.target.value)));
   };
-
   const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
     audio.currentTime = Number(e.target.value);
     dispatch(setCurrentTime(Number(e.target.value)));
   };
 
+  if (!active) {
+    return null;
+  }
+
   return (
     <div className={styles.player}>
       <IconButton onClick={play}>
-        {pause ? <PlayArrow /> : <Pause />}
+        {!pause ? <PlayArrow /> : <Pause />}
       </IconButton>
       <Grid
         container

@@ -8,16 +8,11 @@ import React, { FC } from "react";
 import { connect } from "react-redux";
 import TrackItem from "./TrackItem";
 
-// interface Props {
-//   track: {tracks: ITrack[]}
-// }
-
 type Props = {
     tracks: ITrack[]
 }
 
 const TrackList: React.FC<Props> = ({tracks}) => {
-
   return (
       <Grid container direction="column">
           <Box p={2}>

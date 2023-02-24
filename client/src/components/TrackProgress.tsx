@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { FC } from "react";
 
 type Props = {
@@ -9,9 +10,15 @@ type Props = {
 const TrackProgress: FC<Props> = ({ left, right, onChange }) => {
   return (
     <div style={{ display: "flex" }}>
-      <input type="range" min={0} value={left} max={right} onChange={onChange} />
+      <input
+        type="range"
+        min={0}
+        value={left}
+        max={right}
+        onChange={onChange}
+      />
       <div>
-        {left} / {right}
+        {moment.unix(left).format('mm:ss')} / {moment.unix(right).format('mm:ss')}
       </div>
     </div>
   );
