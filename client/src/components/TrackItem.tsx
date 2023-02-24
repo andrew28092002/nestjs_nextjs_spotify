@@ -18,10 +18,10 @@ type Props = {
   active?: boolean;
 };
 
-const TrackItem: FC<Props> = ({ track }) => {
+const TrackItem: FC<Props> = ({ track, active=false }) => {
   const router = useRouter();
   const dispatch = useTypedDispatch();
-  const { active, currentTime, duration, pause } = useTypedSelector(
+  const { currentTime, duration } = useTypedSelector(
     (state) => state.player
   );
 
@@ -55,7 +55,7 @@ const TrackItem: FC<Props> = ({ track }) => {
       </Grid>
       {active && (
         <div>
-          {moment.unix(currentTime).format('mm:ss')} / {moment.unix(duration).format('mm:ss')}
+          {moment(currentTime).format('mm:ss')} / {moment(duration).format('mm:ss')}
         </div>
       )}
       <IconButton
