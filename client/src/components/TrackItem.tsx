@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import React, { FC } from "react";
 import styles from "./../styles/TrackItem.module.scss";
 import moment from "moment";
+import { deleteTrack } from "@/store/actions/trackAsyncActions";
 
 type Props = {
   track: ITrack;
@@ -31,6 +32,14 @@ const TrackItem: FC<Props> = ({ track, active=false }) => {
     dispatch(setActive(track));
     dispatch(playTrack());
   };
+
+  const deleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+
+    dispatch(deleteTrack(track._id))
+
+    location.reload()
+  }
 
   return (
     <Card
@@ -59,7 +68,7 @@ const TrackItem: FC<Props> = ({ track, active=false }) => {
         </div>
       )}
       <IconButton
-        onClick={(e) => e.stopPropagation()}
+        onClick={deleteButton}
         style={{ marginLeft: "auto" }}
       >
         <Delete />

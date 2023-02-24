@@ -19,8 +19,7 @@ export const getAll = createAsyncThunk("track/getAll", async function () {
 export const commentTrack = createAsyncThunk(
   "track/commentTrack",
   async function (
-    comment: { username: string; text: string; trackId: string },
-    { dispatch }
+    comment: { username: string; text: string; trackId: string }
   ) {
     try {
       const response = await axios.post<string>(
@@ -28,12 +27,24 @@ export const commentTrack = createAsyncThunk(
         comment
       );
 
-      await dispatch(getAll())
-
       return response.data;
     } catch (e) {
       console.log(e);
       return "";
+    }
+  }
+);
+
+export const deleteTrack = createAsyncThunk(
+  "track/deleteTrack",
+  async function (id: string) {
+    try{
+      const response = await axios.delete<string>('http://localhost:4000/track/' + id)
+
+      return response.data
+    } catch(e){
+      console.log(e)
+      return ""
     }
   }
 );
