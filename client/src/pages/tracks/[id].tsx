@@ -1,6 +1,8 @@
 import { MainLayout } from "@/layout/MainLayout";
+import { wrapper } from "@/store/store";
 import { ITrack } from "@/types/track";
 import { Button, Grid, TextField } from "@mui/material";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -16,8 +18,8 @@ const TrackPage = () => {
         Назад
       </Button>
       {/* <Grid container style={{ margin: "20px 0" }}> */}
-        {/* <img src={track.picture} width={200} height={200} /> */}
-        {/* <div>
+      {/* <img src={track.picture} width={200} height={200} /> */}
+      {/* <div>
             <h1>Название трека - {track.name}</h1>
             <h1>Исполнитель - {track.artist}</h1>
             <h1>Прослушиваний - {track.listens}</h1>
@@ -42,3 +44,11 @@ const TrackPage = () => {
 };
 
 export default TrackPage;
+
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps(({ dispatch }) => async () => {
+    
+    return {
+      props: {},
+    };
+  });
