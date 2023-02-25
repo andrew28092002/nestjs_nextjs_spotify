@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 import { Comment } from './comment.schema';
@@ -12,27 +12,27 @@ export class Track {
   _id: string
 
   @Prop({required: true})
-  @Field()
+  @Field(type => String)
   name: string;
 
   @Prop({required: true})
-  @Field()
+  @Field(type => String)
   artist: string;
 
   @Prop({required: true})
-  @Field()
+  @Field(type => String)
   text: string;
 
   @Prop({default: 0})
-  @Field()
+  @Field(type => Int)
   listens: number;
 
   @Prop()
-  @Field()
+  @Field(type => String)
   picture: string;
 
   @Prop()
-  @Field()
+  @Field(type => String)
   audio: string;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Comment' }] })
