@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddCommentDto {
+  text: String!
+  trackId: String!
+  username: String!
+}
+
+type Comment {
+  _id: ID!
+  text: String!
+  track: [Track!]!
+  username: String!
+}
+
+input CreateTrackDto {
+  artist: String!
+  name: String!
+  text: String
+}
+
+type Mutation {
+  commment(comment: AddCommentDto!): String!
+  create(create: CreateTrackDto!): Track!
+}
+
+type Query {
+  delete(id: String!): String!
+  getAll(count: Int, offset: Int): [Track!]!
+  getOne(id: String!): Track!
+  listen(id: String!): Track!
+  search(query: String!): [Track!]!
+}
+
+type Track {
+  _id: ID!
+  artist: String!
+  audio: String!
+  comments: [Comment!]!
+  listens: Int!
+  name: String!
+  picture: String!
+  text: String!
+}

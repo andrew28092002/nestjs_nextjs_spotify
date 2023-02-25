@@ -1,7 +1,7 @@
-import { ArgsType, Field } from "@nestjs/graphql"
+import { ArgsType, Field, InputType } from "@nestjs/graphql"
 
 
-@ArgsType()
+@InputType()
 export class CreateTrackDto{
     @Field(type => String, {nullable: false})
     readonly name: string
@@ -9,6 +9,6 @@ export class CreateTrackDto{
     @Field(type => String, {nullable: false})
     readonly artist: string
 
-    @Field(type => String, {nullable: false})
+    @Field(type => String, {nullable: true})
     readonly text: string
 }

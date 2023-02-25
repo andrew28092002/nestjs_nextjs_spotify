@@ -1,7 +1,6 @@
 import { UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ObjectId } from 'mongoose';
 import { AddCommentDto } from './dto/add-comment.dto';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { Track } from './schemas/track.schema';
@@ -19,9 +18,9 @@ export class TrackResolver {
     ]),
   )
   create(
-    @Args('create', {type: () => CreateTrackDto}) dto: CreateTrackDto,
+    @Args('create') dto: CreateTrackDto,
     @UploadedFiles()
-    files: { picture?: Express.Multer.File[]; audio?: Express.Multer.File[] },
+    files?: { picture?: Express.Multer.File[]; audio?: Express.Multer.File[] },
   ) {
     const { picture, audio } = files;
     return this.TrackService.create(dto, picture, audio);
@@ -29,8 +28,8 @@ export class TrackResolver {
 
   @Query((returns) => [Track])
   getAll(
-    @Args('count', {type: () => Int}) count: number,
-    @Args('offset', {type: () => Int}) offset: number
+    @Args('count', {type: () => Int, nullable: true}) count?: number,
+    @Args('offset', {type: () => Int, nullable: true}) offset?: number
   ){
     return this.TrackService.getAll(count, offset)
   }
@@ -58,7 +57,7 @@ export class TrackResolver {
 
   @Mutation((returns) => String)
   commment(
-    @Args('comment', {type: () => AddCommentDto}) dto: AddCommentDto
+    @Args('comment') dto: AddCommentDto
   ){
     return this.TrackService.addComment(dto)
   }

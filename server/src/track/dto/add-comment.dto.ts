@@ -1,8 +1,8 @@
-import { ArgsType, Field } from "@nestjs/graphql"
+import { ArgsType, Field, InputType } from "@nestjs/graphql"
 import { ObjectId } from "mongoose"
 
 
-@ArgsType()
+@InputType()
 export class AddCommentDto{
     @Field(type => String, {nullable: false})
     readonly username: string
