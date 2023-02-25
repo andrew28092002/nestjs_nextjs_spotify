@@ -12,12 +12,12 @@ export class Comment {
     @Field(type => ID)
     _id: string
 
-    @Field()
     @Prop()
+    @Field(type => String)
     username: string
 
     @Prop()
-    @Field()
+    @Field(type => String)
     text: string
 
     @Prop({type: [{type: Types.ObjectId, ref: 'Track'}]})
