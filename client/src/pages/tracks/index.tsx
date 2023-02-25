@@ -1,12 +1,15 @@
 import TrackList from "@/components/TrackList";
+import { GET_ALL } from "@/features/graphql";
 import { MainLayout } from "@/layout/MainLayout";
 import { getAll } from "@/store/actions/trackAsyncActions";
 import { NextThunkDispatch, wrapper } from "@/store/store";
 import { ITrack } from "@/types/track";
+import { useQuery } from "@apollo/client";
 import { Box, Button, Card, Grid } from "@mui/material";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
+import { client } from "../_app";
 
 type Props = {
   tracks: ITrack[];
@@ -37,14 +40,15 @@ const index: FC<Props> = ({ tracks }) => {
 export default index;
 
 export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async () => {
-    const dispatch = store.dispatch as NextThunkDispatch;
+  wrapper.getServerSideProps(() => async () => {
 
-    const { payload: tracks } = await dispatch(getAll());
+    const { data } = await client.query({
+      query: GET_ALL,
+    });
 
     return {
       props: {
-        tracks,
+        tracks: data.tracks,
       },
     };
   });

@@ -1,3 +1,4 @@
+import { GET_ONE } from "@/features/graphql";
 import { useInput } from "@/features/useInput";
 import { MainLayout } from "@/layout/MainLayout";
 import { commentTrack } from "@/store/actions/trackAsyncActions";
@@ -9,6 +10,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
+import { client } from "../_app";
 
 type Props = {
   track: ITrack;
@@ -86,12 +88,18 @@ export default TrackPage;
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(() => async ({ params }) => {
-    const { data: track } = await axios.get(
-      "http://localhost:4000/track/" + params!.id
-    );
+    const id = params?.id;
+
+    const { data } = await client.query({
+      query: GET_ONE,
+      variables: {
+        id,
+      },
+    });
+
     return {
       props: {
-        track,
+        track: data.track
       },
     };
   });
