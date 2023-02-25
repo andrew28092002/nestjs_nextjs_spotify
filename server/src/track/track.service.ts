@@ -25,8 +25,8 @@ export class TrackService {
     const picturePath = this.FileService.createFile(FileType.IMAGE, picture);
     const track = await this.TrackModel.create({
       ...dto,
-      audio: audioPath || '',
-      picture: picturePath || '',
+      audio: audioPath,
+      picture: picturePath,
     });
 
     return track;

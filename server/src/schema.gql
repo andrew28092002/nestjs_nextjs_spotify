@@ -15,15 +15,8 @@ type Comment {
   username: String!
 }
 
-input CreateTrackDto {
-  artist: String!
-  name: String!
-  text: String
-}
-
 type Mutation {
   commment(comment: AddCommentDto!): String!
-  create(create: CreateTrackDto!): Track!
 }
 
 type Query {

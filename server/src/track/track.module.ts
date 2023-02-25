@@ -9,6 +9,7 @@ import { TrackResolver } from './track.resolver';
 
 @Module({
   providers: [TrackService, TrackResolver],
+  controllers: [TrackController],
   imports: [
     MongooseModule.forFeature([
       { name: Track.name, schema: TrackSchema },

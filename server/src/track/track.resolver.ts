@@ -1,30 +1,11 @@
-import { UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AddCommentDto } from './dto/add-comment.dto';
-import { CreateTrackDto } from './dto/create-track.dto';
 import { Track } from './schemas/track.schema';
 import { TrackService } from './track.service';
 
 @Resolver((of) => Track)
 export class TrackResolver {
   constructor(private readonly TrackService: TrackService) {}
-
-  @Mutation((returns) => Track)
-  @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'picture', maxCount: 1 },
-      { name: 'audio', maxCount: 1 },
-    ]),
-  )
-  create(
-    @Args('create') dto: CreateTrackDto,
-    @UploadedFiles()
-    files?: { picture?: Express.Multer.File[]; audio?: Express.Multer.File[] },
-  ) {
-    const { picture, audio } = files;
-    return this.TrackService.create(dto, picture, audio);
-  }
 
   @Query((returns) => [Track])
   getAll(
