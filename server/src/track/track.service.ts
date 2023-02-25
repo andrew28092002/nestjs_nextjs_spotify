@@ -70,7 +70,7 @@ export class TrackService {
     return comment;
   }
 
-  async listen(id: ObjectId): Promise<Track> {
+  async listen(id: string): Promise<Track> {
     const track = await this.TrackModel.findById(id);
     track.listens += 1;
 

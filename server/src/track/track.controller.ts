@@ -61,7 +61,7 @@ export class TrackController {
   }
 
   @Get('listen/:id')
-  listen(@Param('id') id: ObjectId) {
+  listen(@Param('id') id: string) {
     return this.TrackService.listen(id);
   }
 }
