@@ -54,7 +54,7 @@ export class TrackService {
     return track;
   }
 
-  async delete(id: ObjectId): Promise<ObjectId> {
+  async delete(id: string): Promise<string> {
     await this.TrackModel.findByIdAndDelete(id);
 
     return id;

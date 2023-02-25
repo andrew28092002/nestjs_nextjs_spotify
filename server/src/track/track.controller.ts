@@ -51,7 +51,7 @@ export class TrackController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: ObjectId) {
+  delete(@Param('id') id: string) {
     return this.TrackService.delete(id);
   }
 
