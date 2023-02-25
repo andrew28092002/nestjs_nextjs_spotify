@@ -6,14 +6,8 @@ export const GET_ALL = gql`
       _id
       name
       artist
-      text
-      listens
       picture
       audio
-      comments {
-        username
-        text
-      }
     }
   }
 `;
@@ -28,9 +22,18 @@ export const GET_ONE = gql`
       listens
       picture
       comments {
+        _id
         username
         text
       }
+    }
+  }
+`;
+
+export const COMMENT = gql`
+  mutation ($comment: AddCommentDto!) {
+    commment(comment: $comment) {
+      text
     }
   }
 `;

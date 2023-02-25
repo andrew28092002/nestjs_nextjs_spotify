@@ -1,12 +1,10 @@
-import { GET_ONE } from "@/features/graphql";
+import { COMMENT, GET_ONE } from "@/features/graphql";
 import { useInput } from "@/features/useInput";
 import { MainLayout } from "@/layout/MainLayout";
-import { commentTrack } from "@/store/actions/trackAsyncActions";
-import { wrapper } from "@/store/store";
 import { ITrack } from "@/types/track";
 import { useTypedDispatch } from "@/types/typedHooks/useTypedDispatch";
+import { useMutation } from "@apollo/client";
 import { Button, Grid, TextField } from "@mui/material";
-import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
@@ -21,16 +19,19 @@ const TrackPage: FC<Props> = ({ track }) => {
   const username = useInput("");
   const text = useInput("");
   const dispatch = useTypedDispatch();
+  const [comment] = useMutation(COMMENT);
 
   const addComment = async () => {
     try {
-      await dispatch(
-        commentTrack({
-          username: username.value,
-          text: text.value,
-          trackId: track._id,
-        })
-      );
+      await comment({
+        variables: {
+          comment: {
+            username: username.value,
+            text: text.value,
+            trackId: track._id,
+          },
+        },
+      });
 
       location.reload();
     } catch (e) {
@@ -86,20 +87,19 @@ const TrackPage: FC<Props> = ({ track }) => {
 
 export default TrackPage;
 
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(() => async ({ params }) => {
-    const id = params?.id;
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const id = context.params?.id;
 
-    const { data } = await client.query({
-      query: GET_ONE,
-      variables: {
-        id,
-      },
-    });
-
-    return {
-      props: {
-        track: data.track
-      },
-    };
+  const { data } = await client.query({
+    query: GET_ONE,
+    variables: {
+      id,
+    },
   });
+
+  return {
+    props: {
+      track: data.track,
+    },
+  };
+};

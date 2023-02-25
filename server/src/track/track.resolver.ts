@@ -1,5 +1,6 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AddCommentDto } from './dto/add-comment.dto';
+import { Comment } from './schemas/comment.schema';
 import { Track } from './schemas/track.schema';
 import { TrackService } from './track.service';
 
@@ -36,7 +37,7 @@ export class TrackResolver {
     return this.TrackService.delete(id)
   }
 
-  @Mutation((returns) => String)
+  @Mutation((returns) => Comment)
   commment(
     @Args('comment') dto: AddCommentDto
   ){

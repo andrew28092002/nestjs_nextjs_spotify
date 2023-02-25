@@ -16,7 +16,7 @@ type Comment {
 }
 
 type Mutation {
-  commment(comment: AddCommentDto!): String!
+  commment(comment: AddCommentDto!): Comment!
 }
 
 type Query {

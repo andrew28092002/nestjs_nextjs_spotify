@@ -1,10 +1,8 @@
 import TrackList from "@/components/TrackList";
 import { GET_ALL } from "@/features/graphql";
 import { MainLayout } from "@/layout/MainLayout";
-import { getAll } from "@/store/actions/trackAsyncActions";
-import { NextThunkDispatch, wrapper } from "@/store/store";
+import { wrapper } from "@/store/store";
 import { ITrack } from "@/types/track";
-import { useQuery } from "@apollo/client";
 import { Box, Button, Card, Grid } from "@mui/material";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
@@ -39,16 +37,14 @@ const index: FC<Props> = ({ tracks }) => {
 
 export default index;
 
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps(() => async () => {
-
-    const { data } = await client.query({
-      query: GET_ALL,
-    });
-
-    return {
-      props: {
-        tracks: data.tracks,
-      },
-    };
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await client.query({
+    query: GET_ALL,
   });
+
+  return {
+    props: {
+      tracks: data.tracks,
+    },
+  };
+};
