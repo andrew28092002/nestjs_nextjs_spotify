@@ -13,6 +13,8 @@ import React, { FC } from "react";
 import styles from "./../styles/TrackItem.module.scss";
 import moment from "moment";
 import { deleteTrack } from "@/store/actions/trackAsyncActions";
+import { client } from "@/pages/_app";
+import { DELETE } from "@/features/graphql";
 
 type Props = {
   track: ITrack;
@@ -52,7 +54,7 @@ const TrackItem: FC<Props> = ({ track, active=false }) => {
       <img
         width={70}
         height={70}
-        src={"http://localhost:4000/" + track.picture}
+        src={process.env.URL_REST + track.picture}
       />
       <Grid
         container

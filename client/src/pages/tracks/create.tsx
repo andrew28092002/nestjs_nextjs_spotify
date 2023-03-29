@@ -27,7 +27,7 @@ const Create: FC = () => {
       formData.append('picture', picture)
       formData.append('audio', audio)
 
-      axios.post('http://localhost:4000/track', formData)
+      axios.post(process.env.URL_REST + 'track', formData)
                 .then(resp => router.push('/tracks'))
                 .catch(e => console.log(e))
     }

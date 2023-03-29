@@ -5,13 +5,12 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql,
 } from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.URL_GRAPHQL,
   cache: new InMemoryCache(),
-});
+})
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (

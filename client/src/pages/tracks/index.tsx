@@ -16,6 +16,10 @@ type Props = {
 const index: FC<Props> = ({ tracks }) => {
   const router = useRouter();
 
+  if (tracks.length < 1) {
+    return <div></div>
+  }
+
   return (
     <MainLayout title={"Список треков - музыкальная площадка"}>
       <Grid container justifyContent="center">

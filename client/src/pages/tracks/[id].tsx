@@ -18,7 +18,6 @@ const TrackPage: FC<Props> = ({ track }) => {
   const router = useRouter();
   const username = useInput("");
   const text = useInput("");
-  const dispatch = useTypedDispatch();
   const [comment] = useMutation(COMMENT);
 
   const addComment = async () => {

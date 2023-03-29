@@ -37,3 +37,11 @@ export const COMMENT = gql`
     }
   }
 `;
+
+export const DELETE = gql`
+  query ($id: String!) {
+    delete(id: $id) {
+      id
+    }
+  }
+`;

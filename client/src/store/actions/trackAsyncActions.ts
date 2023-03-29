@@ -4,9 +4,7 @@ import axios from "axios";
 
 export const getAll = createAsyncThunk("track/getAll", async function () {
   try {
-    const response = await axios.get<ITrack[]>(
-      "http://localhost:4000" + "/track"
-    );
+    const response = await axios.get<ITrack[]>(process.env.URL_REST + "track");
     const tracks = response.data;
 
     return tracks;
@@ -18,12 +16,14 @@ export const getAll = createAsyncThunk("track/getAll", async function () {
 
 export const commentTrack = createAsyncThunk(
   "track/commentTrack",
-  async function (
-    comment: { username: string; text: string; trackId: string }
-  ) {
+  async function (comment: {
+    username: string;
+    text: string;
+    trackId: string;
+  }) {
     try {
       const response = await axios.post<string>(
-        "http://localhost:4000/track/comment",
+        process.env.URL_REST + "track/comment",
         comment
       );
 
@@ -38,13 +38,12 @@ export const commentTrack = createAsyncThunk(
 export const deleteTrack = createAsyncThunk(
   "track/deleteTrack",
   async function (id: string) {
-    try{
-      const response = await axios.delete<string>('http://localhost:4000/track/' + id)
+    console.log(process.env.URL_REST + "track/" + id);
+    axios
+      .delete(process.env.URL_REST + "track/" + id)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
 
-      return response.data
-    } catch(e){
-      console.log(e)
-      return ""
-    }
+    // return response.data;
   }
 );
