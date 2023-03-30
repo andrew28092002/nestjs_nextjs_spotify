@@ -8,7 +8,7 @@ import {
 } from "@apollo/client";
 
 export const client = new ApolloClient({
-  uri: process.env.URL_GRAPHQL,
+  uri: `${process.env.API_URL}/graphql`,
   cache: new InMemoryCache(),
 })
 

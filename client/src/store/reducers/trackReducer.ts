@@ -1,6 +1,6 @@
 import { ITrack, TTrackState } from "@/types/track";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getAll } from "../actions/trackAsyncActions";
+import { createTrack, getAll } from "../actions/trackAsyncActions";
 
 const initialState: TTrackState = {
   tracks: [],
@@ -15,6 +15,14 @@ const trackSlice = createSlice({
       getAll.fulfilled,
       (state, action: PayloadAction<ITrack[]>) => {
         state.tracks = action.payload;
+      }
+    );
+    builder.addCase(
+      createTrack.fulfilled,
+      (state, action: PayloadAction<ITrack>) => {
+        state.tracks = state.tracks.filter(
+          (track) => track._id !== action.payload._id
+        );
       }
     );
   },

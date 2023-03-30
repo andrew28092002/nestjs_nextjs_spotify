@@ -4,8 +4,7 @@ WORKDIR /usr/src/app
 
 COPY ./ ./
 
-# building the app
-RUN npm i
+RUN npm i --production
 RUN npm run build
 
 EXPOSE 3000

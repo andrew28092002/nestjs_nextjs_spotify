@@ -1,12 +1,13 @@
 import TrackList from "@/components/TrackList";
 import { GET_ALL } from "@/features/graphql";
 import { MainLayout } from "@/layout/MainLayout";
-import { wrapper } from "@/store/store";
+import { getAll } from "@/store/actions/trackAsyncActions";
 import { ITrack } from "@/types/track";
+import { useTypedDispatch } from "@/types/typedHooks/useTypedDispatch";
 import { Box, Button, Card, Grid } from "@mui/material";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { client } from "../_app";
 
 type Props = {
@@ -15,10 +16,11 @@ type Props = {
 
 const index: FC<Props> = ({ tracks }) => {
   const router = useRouter();
+  const dispatch = useTypedDispatch()
 
-  if (tracks.length < 1) {
-    return <div></div>
-  }
+  useEffect(() => {
+    dispatch(getAll())
+  })
 
   return (
     <MainLayout title={"Список треков - музыкальная площадка"}>
@@ -45,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await client.query({
     query: GET_ALL,
   });
-
+  
   return {
     props: {
       tracks: data.tracks,

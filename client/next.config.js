@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    URL_GRAPHQL: process.env.URL_GRAPHQL,
-    URL_REST: process.env.URL_REST
+    API_URL: process.env.API_URL,
+    
   }
 }
 

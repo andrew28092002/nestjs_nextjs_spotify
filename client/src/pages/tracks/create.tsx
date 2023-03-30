@@ -6,8 +6,11 @@ import FileUpload from "@/components/FileUpload";
 import { useInput } from "@/features/useInput";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useTypedDispatch } from "@/types/typedHooks/useTypedDispatch";
+import { createTrack } from "@/store/actions/trackAsyncActions";
 
 const Create: FC = () => {
+  const dispatch = useTypedDispatch()
   const [activeStep, setActiveStep] = useState(0);
   const [picture, setPicture] = useState('')
   const [audio, setAudio] = useState('')
@@ -26,10 +29,9 @@ const Create: FC = () => {
       formData.append('text', text.value)
       formData.append('picture', picture)
       formData.append('audio', audio)
-
-      axios.post(process.env.URL_REST + 'track', formData)
-                .then(resp => router.push('/tracks'))
-                .catch(e => console.log(e))
+    
+      dispatch(createTrack(formData))
+      router.push('/tracks')
     }
   };
 

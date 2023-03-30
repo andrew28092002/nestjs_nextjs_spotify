@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const getAll = createAsyncThunk("track/getAll", async function () {
   try {
-    const response = await axios.get<ITrack[]>(process.env.URL_REST + "track");
+    const response = await axios.get<ITrack[]>(process.env.API_URL + "/track");
     const tracks = response.data;
 
     return tracks;
@@ -13,6 +13,23 @@ export const getAll = createAsyncThunk("track/getAll", async function () {
     return [];
   }
 });
+
+export const createTrack = createAsyncThunk(
+  "track/create",
+  async function (trackData: FormData) {
+    try {
+      const response = await axios.post(
+        process.env.API_URL + "/track",
+        trackData
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+);
 
 export const commentTrack = createAsyncThunk(
   "track/commentTrack",
@@ -23,7 +40,7 @@ export const commentTrack = createAsyncThunk(
   }) {
     try {
       const response = await axios.post<string>(
-        process.env.URL_REST + "track/comment",
+        process.env.API_URL + "/track/comment",
         comment
       );
 
@@ -38,12 +55,9 @@ export const commentTrack = createAsyncThunk(
 export const deleteTrack = createAsyncThunk(
   "track/deleteTrack",
   async function (id: string) {
-    console.log(process.env.URL_REST + "track/" + id);
-    axios
-      .delete(process.env.URL_REST + "track/" + id)
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
+    
+    const response = await axios.delete<ITrack>(`${process.env.API_URL}/track/${id}`);
 
-    // return response.data;
+    return response.data;
   }
 );

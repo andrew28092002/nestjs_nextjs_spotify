@@ -13,20 +13,16 @@ import React, { FC } from "react";
 import styles from "./../styles/TrackItem.module.scss";
 import moment from "moment";
 import { deleteTrack } from "@/store/actions/trackAsyncActions";
-import { client } from "@/pages/_app";
-import { DELETE } from "@/features/graphql";
 
 type Props = {
   track: ITrack;
   active?: boolean;
 };
 
-const TrackItem: FC<Props> = ({ track, active=false }) => {
+const TrackItem: FC<Props> = ({ track, active = false }) => {
   const router = useRouter();
   const dispatch = useTypedDispatch();
-  const { currentTime, duration } = useTypedSelector(
-    (state) => state.player
-  );
+  const { currentTime, duration } = useTypedSelector((state) => state.player);
 
   const play = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -36,12 +32,10 @@ const TrackItem: FC<Props> = ({ track, active=false }) => {
   };
 
   const deleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
+    e.stopPropagation();
 
-    dispatch(deleteTrack(track._id))
-
-    location.reload()
-  }
+    dispatch(deleteTrack(track._id));
+  };
 
   return (
     <Card
@@ -49,12 +43,12 @@ const TrackItem: FC<Props> = ({ track, active=false }) => {
       onClick={() => router.push("/tracks/" + track._id)}
     >
       <IconButton onClick={play}>
-        {!active? <PlayArrow /> : <Pause />}
+        {!active ? <PlayArrow /> : <Pause />}
       </IconButton>
       <img
         width={70}
         height={70}
-        src={process.env.URL_REST + track.picture}
+        src={`${process.env.API_URL}/${track.picture}`}
       />
       <Grid
         container
@@ -66,13 +60,11 @@ const TrackItem: FC<Props> = ({ track, active=false }) => {
       </Grid>
       {active && (
         <div>
-          {moment(currentTime).format('mm:ss')} / {moment(duration).format('mm:ss')}
+          {moment(currentTime).format("mm:ss")} /{" "}
+          {moment(duration).format("mm:ss")}
         </div>
       )}
-      <IconButton
-        onClick={deleteButton}
-        style={{ marginLeft: "auto" }}
-      >
+      <IconButton onClick={deleteButton} style={{ marginLeft: "auto" }}>
         <Delete />
       </IconButton>
     </Card>
