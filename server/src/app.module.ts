@@ -17,7 +17,11 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       debug: false,
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true
+      sortSchema: true,
+      cors: {
+        origin: ['http://127.0.0.1:3000', 'http://localhost:3000'],
+        credentials: true,
+      },
     }),
     ServeStaticModule.forRoot({
       rootPath: resolve(__dirname, 'static'),

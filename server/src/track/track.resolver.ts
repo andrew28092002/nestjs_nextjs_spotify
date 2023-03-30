@@ -10,44 +10,34 @@ export class TrackResolver {
 
   @Query((returns) => [Track])
   getAll(
-    @Args('count', {type: () => Int, nullable: true}) count?: number,
-    @Args('offset', {type: () => Int, nullable: true}) offset?: number
-  ){
-    return this.TrackService.getAll(count, offset)
+    @Args('count', { type: () => Int, nullable: true }) count?: number,
+    @Args('offset', { type: () => Int, nullable: true }) offset?: number,
+  ) {
+    return this.TrackService.getAll(count, offset);
   }
 
   @Query((returns) => Track)
-  getOne(
-    @Args('id', {type: () => String}) id: string
-  ){
-    return this.TrackService.getOne(id)
+  getOne(@Args('id', { type: () => String }) id: string) {
+    return this.TrackService.getOne(id);
   }
 
   @Query((returns) => [Track])
-  search(
-    @Args('query', {type: () => String}) query: string
-  ){
-    return this.TrackService.search(query)
+  search(@Args('query', { type: () => String }) query: string) {
+    return this.TrackService.search(query);
   }
 
   @Query((returns) => String)
-  delete(
-    @Args('id', {type: () => String}) id: string
-  ){
-    return this.TrackService.delete(id)
+  delete(@Args('id', { type: () => String }) id: string) {
+    return this.TrackService.delete(id);
   }
 
   @Mutation((returns) => Comment)
-  commment(
-    @Args('comment') dto: AddCommentDto
-  ){
-    return this.TrackService.addComment(dto)
+  commment(@Args('comment') dto: AddCommentDto) {
+    return this.TrackService.addComment(dto);
   }
 
   @Query((returns) => Track)
-  listen(
-    @Args('id', {type: () => String}) id: string
-  ){
-    return this.TrackService.listen(id)
+  listen(@Args('id', { type: () => String }) id: string) {
+    return this.TrackService.listen(id);
   }
 }

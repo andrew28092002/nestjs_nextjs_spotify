@@ -54,10 +54,10 @@ export class TrackService {
     return track;
   }
 
-  async delete(id: string): Promise<string> {
-    await this.TrackModel.findByIdAndDelete(id);
+  async delete(id: string): Promise<Track> {
+    const track = await this.TrackModel.findByIdAndDelete(id);
 
-    return id;
+    return track;
   }
 
   async addComment(dto: AddCommentDto): Promise<Comment> {
